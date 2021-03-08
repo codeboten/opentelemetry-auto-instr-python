@@ -268,9 +268,7 @@ class TestAiopgIntegration(TestBase):
         self.assertEqual(span.attributes["db.user"], "testuser")
         self.assertEqual(span.attributes["net.peer.name"], "testhost")
         self.assertEqual(span.attributes["net.peer.port"], 123)
-        self.assertIs(
-            span.status.status_code, trace_api.status.StatusCode.UNSET
-        )
+        self.assertIs(span.status.status_code, trace_api.StatusCode.UNSET)
 
     def test_span_not_recording(self):
         connection_props = {
@@ -319,9 +317,7 @@ class TestAiopgIntegration(TestBase):
         self.assertEqual(len(spans_list), 1)
         span = spans_list[0]
         self.assertEqual(span.attributes["db.statement"], "Test query")
-        self.assertIs(
-            span.status.status_code, trace_api.status.StatusCode.ERROR
-        )
+        self.assertIs(span.status.status_code, trace_api.StatusCode.ERROR)
         self.assertEqual(span.status.description, "Test Exception")
 
     def test_executemany(self):
